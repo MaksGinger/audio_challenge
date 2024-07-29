@@ -4,41 +4,41 @@ part of 'audio_player_bloc.dart';
 sealed class AudioPlayerState {
   const AudioPlayerState();
 
-  const factory AudioPlayerState.initial() = _AudioPlayerInitial;
+  const factory AudioPlayerState.initial() = AudioPlayerInitial;
 
-  const factory AudioPlayerState.loading() = _AudioPlayerLoading;
+  const factory AudioPlayerState.loading() = AudioPlayerLoading;
 
   const factory AudioPlayerState.ready({
     required Transcript transcript,
     required int currentPhraseIndex,
     required bool isPlaying,
-  }) = _AudioPlayerReady;
+  }) = AudioPlayerReady;
 
   const factory AudioPlayerState.error({required String message}) =
-      _AudioPlayerError;
+      AudioPlayerError;
 }
 
-final class _AudioPlayerInitial extends AudioPlayerState {
-  const _AudioPlayerInitial();
+final class AudioPlayerInitial extends AudioPlayerState {
+  const AudioPlayerInitial();
 }
 
-final class _AudioPlayerLoading extends AudioPlayerState {
-  const _AudioPlayerLoading();
+final class AudioPlayerLoading extends AudioPlayerState {
+  const AudioPlayerLoading();
 }
 
-final class _AudioPlayerReady extends AudioPlayerState {
+final class AudioPlayerReady extends AudioPlayerState {
   final Transcript transcript;
   final int currentPhraseIndex;
   final bool isPlaying;
 
-  const _AudioPlayerReady({
+  const AudioPlayerReady({
     required this.transcript,
     required this.currentPhraseIndex,
     required this.isPlaying,
   });
 
   @override
-  bool operator ==(covariant _AudioPlayerReady other) {
+  bool operator ==(covariant AudioPlayerReady other) {
     if (identical(this, other)) return true;
 
     return other.transcript == transcript &&
@@ -50,12 +50,12 @@ final class _AudioPlayerReady extends AudioPlayerState {
   int get hashCode =>
       transcript.hashCode ^ currentPhraseIndex.hashCode ^ isPlaying.hashCode;
 
-  _AudioPlayerReady copyWith({
+  AudioPlayerReady copyWith({
     Transcript? transcript,
     int? currentPhraseIndex,
     bool? isPlaying,
   }) {
-    return _AudioPlayerReady(
+    return AudioPlayerReady(
       transcript: transcript ?? this.transcript,
       currentPhraseIndex: currentPhraseIndex ?? this.currentPhraseIndex,
       isPlaying: isPlaying ?? this.isPlaying,
@@ -63,13 +63,13 @@ final class _AudioPlayerReady extends AudioPlayerState {
   }
 }
 
-final class _AudioPlayerError extends AudioPlayerState {
+final class AudioPlayerError extends AudioPlayerState {
   final String message;
 
-  const _AudioPlayerError({required this.message});
+  const AudioPlayerError({required this.message});
 
   @override
-  bool operator ==(covariant _AudioPlayerError other) {
+  bool operator ==(covariant AudioPlayerError other) {
     if (identical(this, other)) return true;
 
     return other.message == message;
@@ -78,10 +78,10 @@ final class _AudioPlayerError extends AudioPlayerState {
   @override
   int get hashCode => message.hashCode;
 
-  _AudioPlayerError copyWith({
+  AudioPlayerError copyWith({
     String? message,
   }) {
-    return _AudioPlayerError(
+    return AudioPlayerError(
       message: message ?? this.message,
     );
   }

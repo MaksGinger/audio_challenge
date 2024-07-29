@@ -10,9 +10,7 @@ final class Transcript {
   factory Transcript.fromJson(Map<String, dynamic> json) {
     return Transcript(
       pause: json['pause'],
-      speakers: (json['speakers'] as List<Map<String, dynamic>>)
-          .map((e) => Speaker.fromJson(e))
-          .toList(),
+      speakers: (json['speakers']).map((e) => Speaker.fromJson(e)).toList(),
     );
   }
 }
@@ -27,9 +25,7 @@ final class Speaker {
   factory Speaker.fromJson(Map<String, dynamic> json) {
     return Speaker(
       name: json['name'],
-      phrases: (json['phrases'] as List<Map<String, dynamic>>)
-          .map((e) => Phrase.fromJson(e))
-          .toList(),
+      phrases: (json['phrases']).map((e) => Phrase.fromJson(e)).toList(),
     );
   }
 }
