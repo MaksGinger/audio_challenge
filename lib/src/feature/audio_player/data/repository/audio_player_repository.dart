@@ -6,6 +6,7 @@ abstract interface class AudioPlayerRepository {
   Stream<Duration> get positionStream;
   Transcript? get transcript;
   int get currentPhraseIndex;
+  List<Phrase> get interleavedPhrases;
   Future<void> playAudio();
   Future<void> pauseAudio();
   Future<void> loadAudio({
@@ -75,6 +76,13 @@ final class AudioPlayerRepositoryImpl implements AudioPlayerRepository {
     }
   }
 
+  @override
+  List<Phrase> get interleavedPhrases {
+    _interleavedPhrases ??= _computeInterleavedPhrases();
+
+    return _interleavedPhrases!;
+  }
+
   Future<void> _seekToPhrase(int index) async {
     if (_transcript != null) {
       int totalDuration = 0; // in milliseconds
@@ -83,12 +91,6 @@ final class AudioPlayerRepositoryImpl implements AudioPlayerRepository {
       }
       await _audioPlayer.seek(Duration(milliseconds: totalDuration));
     }
-  }
-
-  List<Phrase> get interleavedPhrases {
-    _interleavedPhrases ??= _computeInterleavedPhrases();
-
-    return _interleavedPhrases!;
   }
 
   List<Phrase> _computeInterleavedPhrases() {

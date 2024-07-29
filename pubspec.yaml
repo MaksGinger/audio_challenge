@@ -7,8 +7,10 @@ environment:
   sdk: '>=3.4.4 <4.0.0'
 
 dependencies:
+  bloc: ^8.1.4
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.6
   just_audio: ^0.9.39
   meta: ^1.12.0
 
