@@ -22,6 +22,8 @@ class AudioPlayerScreen extends StatelessWidget {
             AudioPlayerReady(
               :final transcript,
               :final currentPhraseIndex,
+              :final interleavedPhrases,
+              :final isPlaying,
             ) =>
               Column(
                 children: [
@@ -29,9 +31,12 @@ class AudioPlayerScreen extends StatelessWidget {
                     child: TranscriptDisplay(
                       transcript: transcript,
                       currentPhraseIndex: currentPhraseIndex,
+                      interleavedPhrases: interleavedPhrases,
                     ),
                   ),
-                  const ControlButtons(),
+                  ControlButtons(
+                    isPlaying: isPlaying,
+                  ),
                 ],
               ),
             AudioPlayerError(:final message) => Center(

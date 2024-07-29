@@ -13,7 +13,7 @@ class App extends StatelessWidget {
 
   Future<String> _loadTranscript(BuildContext context) async {
     return await DefaultAssetBundle.of(context)
-        .loadString(AssetRef.exampleJson.path);
+        .loadString(AssetRef.exampleJson.assetPath);
   }
 
   @override
@@ -31,7 +31,7 @@ class App extends StatelessWidget {
                         DependenciesScope.of(context).audioPlayerRepository,
                   )..add(
                       AudioPlayerEvent.loadAudio(
-                        audioUrl: AssetRef.exampleAudio.path,
+                        audioUrl: AssetRef.exampleAudio.assetPath,
                         audioTranscriptionUrl: transcriptionJson,
                       ),
                     ),

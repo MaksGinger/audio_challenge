@@ -46,6 +46,7 @@ final class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
           transcript: _audioPlayerRepository.transcript!,
           currentPhraseIndex: _audioPlayerRepository.currentPhraseIndex,
           isPlaying: false,
+          interleavedPhrases: _audioPlayerRepository.interleavedPhrases,
         ),
       );
     } catch (e) {

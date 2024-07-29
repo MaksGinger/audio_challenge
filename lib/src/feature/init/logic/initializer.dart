@@ -5,9 +5,7 @@ import 'package:audio_challenge/src/common/http_client/fake_http_client.dart';
 import 'package:audio_challenge/src/feature/audio_player/data/datasource/audio_player_datasource.dart';
 import 'package:audio_challenge/src/feature/audio_player/data/repository/audio_player_repository.dart';
 import 'package:audio_challenge/src/feature/init/model/app_dependencies.dart';
-import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 
 final class Initializer {
@@ -35,7 +33,7 @@ final class Initializer {
       return true;
     };
 
-    Bloc.transformer = bloc_concurrency.sequential();
+    //Bloc.transformer = bloc_concurrency.sequential();
 
     final fakeHttpClient = FakeHttpClient();
     final audioPlayerDatasource =
