@@ -1,12 +1,10 @@
 import 'dart:convert' show json;
 
 final class FakeHttpClient {
-  FakeHttpClient({required String jsonString}) : _jsonString = jsonString;
+  FakeHttpClient();
 
-  final String _jsonString;
-
-  Future<Map<String, dynamic>> get() async {
-    final jsonResponse = json.decode(_jsonString) as Map<String, dynamic>;
+  Future<Map<String, dynamic>> get(String jsonString) async {
+    final jsonResponse = json.decode(jsonString) as Map<String, dynamic>;
     return jsonResponse;
   }
 }

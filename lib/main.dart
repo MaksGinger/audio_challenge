@@ -1,10 +1,24 @@
-import 'package:audio_challenge/src/app.dart';
-import 'package:audio_challenge/src/common/constant/asset_ref.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'dart:async';
+import 'dart:developer' as dev;
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final jsonString = await rootBundle.loadString(AssetRef.exampleJson.path);
-  runApp(const App());
+import 'package:audio_challenge/src/app.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runZonedGuarded(
+    () async {
+      FlutterError.onError = (details) {
+        dev.log(
+          'Flutter Error',
+          error: details.exceptionAsString(),
+          stackTrace: details.stack,
+        );
+      };
+      runApp(const App());
+    },
+    (error, stackTrace) {
+      // capture errors e.g. to crashlytics or sentry
+      dev.log('App Error', error: error, stackTrace: stackTrace);
+    },
+  );
 }
