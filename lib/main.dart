@@ -1,21 +1,11 @@
 import 'dart:async';
 import 'dart:developer' as dev;
 
-import 'package:audio_challenge/src/app.dart';
-import 'package:flutter/material.dart';
+import 'package:audio_challenge/src/feature/init/logic/initializer.dart';
 
 void main() {
   runZonedGuarded(
-    () async {
-      FlutterError.onError = (details) {
-        dev.log(
-          'Flutter Error',
-          error: details.exceptionAsString(),
-          stackTrace: details.stack,
-        );
-      };
-      runApp(const App());
-    },
+    () => const Initializer()..initializeAndRunApp(),
     (error, stackTrace) {
       // capture errors e.g. to crashlytics or sentry
       dev.log('App Error', error: error, stackTrace: stackTrace);
