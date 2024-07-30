@@ -8,11 +8,11 @@ final class Transcript {
   const Transcript({required this.pause, required this.speakers});
 
   factory Transcript.fromJson(Map<String, dynamic> json) {
-    var json2 =
+    var speakersJson =
         (json['speakers'] as List<dynamic>).cast<Map<String, dynamic>>();
     return Transcript(
       pause: json['pause'] as int,
-      speakers: (json2).map((e) => Speaker.fromJson(e)).toList(),
+      speakers: (speakersJson).map((e) => Speaker.fromJson(e)).toList(),
     );
   }
 }
@@ -25,10 +25,11 @@ final class Speaker {
   const Speaker({required this.name, required this.phrases});
 
   factory Speaker.fromJson(Map<String, dynamic> json) {
-    var json2 = (json['phrases'] as List<dynamic>).cast<Map<String, dynamic>>();
+    var phrasesJson =
+        (json['phrases'] as List<dynamic>).cast<Map<String, dynamic>>();
     return Speaker(
       name: json['name'] as String,
-      phrases: (json2).map((e) => Phrase.fromJson(e)).toList(),
+      phrases: (phrasesJson).map((e) => Phrase.fromJson(e)).toList(),
     );
   }
 }
