@@ -5,7 +5,6 @@ import 'package:just_audio/just_audio.dart';
 abstract interface class AudioPlayerRepository {
   Stream<Duration> get positionStream;
   Transcript? get transcript;
-  int get currentPhraseIndex;
   List<Phrase> get interleavedPhrases;
   Future<void> playAudio();
   Future<void> pauseAudio();
@@ -13,8 +12,8 @@ abstract interface class AudioPlayerRepository {
     required String audioUrl,
     required String audioTranscriptUrl,
   });
-  Future<void> seekToNextPhrase();
-  Future<void> seekToPreviousPhrase();
+  Future<int> seekToNextPhrase(int index);
+  Future<int> seekToPreviousPhrase(int index);
 }
 
 final class AudioPlayerRepositoryImpl implements AudioPlayerRepository {
@@ -28,11 +27,7 @@ final class AudioPlayerRepositoryImpl implements AudioPlayerRepository {
   final AudioPlayer _audioPlayer;
 
   Transcript? _transcript;
-  int _currentPhraseIndex = 0;
   List<Phrase>? _interleavedPhrases;
-
-  @override
-  int get currentPhraseIndex => _currentPhraseIndex;
 
   @override
   Stream<Duration> get positionStream => _audioPlayer.positionStream;
@@ -46,6 +41,7 @@ final class AudioPlayerRepositoryImpl implements AudioPlayerRepository {
     required String audioTranscriptUrl,
   }) async {
     await _audioPlayer.setAsset(audioUrl);
+    await _audioPlayer.setLoopMode(LoopMode.all);
     _transcript =
         await _audioPlayerDatasource.getTranscript(audioTranscriptUrl);
   }
@@ -61,19 +57,22 @@ final class AudioPlayerRepositoryImpl implements AudioPlayerRepository {
   }
 
   @override
-  Future<void> seekToNextPhrase() async {
-    if (_currentPhraseIndex > 0) {
-      _currentPhraseIndex -= 1;
-      await _seekToPhrase(_currentPhraseIndex);
+  Future<int> seekToNextPhrase(int index) async {
+    if (index < interleavedPhrases.length - 1) {
+      index += 1;
+      await _seekToPhrase(index);
     }
+    return index;
   }
 
   @override
-  Future<void> seekToPreviousPhrase() async {
-    if (_currentPhraseIndex < interleavedPhrases.length - 1) {
-      _currentPhraseIndex += 1;
-      await _seekToPhrase(_currentPhraseIndex);
+  Future<int> seekToPreviousPhrase(int index) async {
+    if (index > 0) {
+      index -= 1;
+
+      await _seekToPhrase(index);
     }
+    return index;
   }
 
   @override

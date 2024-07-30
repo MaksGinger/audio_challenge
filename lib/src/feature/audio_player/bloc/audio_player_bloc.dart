@@ -44,7 +44,7 @@ final class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
       emit(
         AudioPlayerReady(
           transcript: _audioPlayerRepository.transcript!,
-          currentPhraseIndex: _audioPlayerRepository.currentPhraseIndex,
+          currentPhraseIndex: 0,
           isPlaying: false,
           interleavedPhrases: _audioPlayerRepository.interleavedPhrases,
         ),
@@ -59,7 +59,7 @@ final class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
     Emitter<AudioPlayerState> emit,
   ) async {
     if (state is AudioPlayerReady) {
-      await _audioPlayerRepository.playAudio();
+      _audioPlayerRepository.playAudio();
       emit((state as AudioPlayerReady).copyWith(isPlaying: true));
     }
   }
@@ -79,10 +79,12 @@ final class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
     Emitter<AudioPlayerState> emit,
   ) async {
     if (state is AudioPlayerReady) {
-      await _audioPlayerRepository.seekToPreviousPhrase();
+      final currentPhraseIndex = await _audioPlayerRepository
+          .seekToPreviousPhrase((state as AudioPlayerReady).currentPhraseIndex);
+
       emit(
         (state as AudioPlayerReady).copyWith(
-          currentPhraseIndex: _audioPlayerRepository.currentPhraseIndex,
+          currentPhraseIndex: currentPhraseIndex,
         ),
       );
     }
@@ -93,10 +95,11 @@ final class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
     Emitter<AudioPlayerState> emit,
   ) async {
     if (state is AudioPlayerReady) {
-      await _audioPlayerRepository.seekToNextPhrase();
+      final currentPhraseIndex = await _audioPlayerRepository
+          .seekToNextPhrase((state as AudioPlayerReady).currentPhraseIndex);
       emit(
         (state as AudioPlayerReady).copyWith(
-          currentPhraseIndex: _audioPlayerRepository.currentPhraseIndex,
+          currentPhraseIndex: currentPhraseIndex,
         ),
       );
     }
