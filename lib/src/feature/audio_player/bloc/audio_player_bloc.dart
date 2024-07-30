@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:audio_challenge/src/feature/audio_player/data/repository/audio_player_repository.dart';
 import 'package:audio_challenge/src/feature/audio_player/model/transcript.dart';
 import 'package:bloc/bloc.dart';
@@ -59,7 +61,7 @@ final class AudioPlayerBloc extends Bloc<AudioPlayerEvent, AudioPlayerState> {
     Emitter<AudioPlayerState> emit,
   ) async {
     if (state is AudioPlayerReady) {
-      _audioPlayerRepository.playAudio();
+      unawaited(_audioPlayerRepository.playAudio());
       emit((state as AudioPlayerReady).copyWith(isPlaying: true));
     }
   }
