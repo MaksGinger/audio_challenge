@@ -1,6 +1,6 @@
 {
-    "name": "audio_challenge",
-    "short_name": "audio_challenge",
+    "name": "Audio Challenge",
+    "short_name": "Audio Challenge",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
