@@ -14,13 +14,14 @@ class ControlButtons extends StatelessWidget {
       children: [
         IconButton(
           icon: const Icon(Icons.skip_previous),
+          iconSize: 32,
           onPressed: () => context
               .read<AudioPlayerBloc>()
               .add(const AudioPlayerEvent.rewindAudio()),
         ),
         IconButton(
           icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-          iconSize: 64.0,
+          iconSize: 64,
           onPressed: () => context.read<AudioPlayerBloc>().add(
                 isPlaying
                     ? const AudioPlayerEvent.pauseAudio()
@@ -28,6 +29,7 @@ class ControlButtons extends StatelessWidget {
               ),
         ),
         IconButton(
+          iconSize: 32,
           icon: const Icon(Icons.skip_next),
           onPressed: () => context
               .read<AudioPlayerBloc>()

@@ -27,17 +27,21 @@ class TranscriptDisplay extends StatelessWidget {
               phrase == interleavedPhrases[currentPhraseIndex];
 
           return ListTile(
-            title: Text(
-              phrase.words,
-              style: TextStyle(
-                fontWeight:
-                    isCurrentPhrase ? FontWeight.bold : FontWeight.normal,
-                color: isCurrentPhrase ? Colors.blue : Colors.black,
+            title: Center(
+              child: Text(
+                phrase.words,
+                style: TextStyle(
+                  fontWeight:
+                      isCurrentPhrase ? FontWeight.bold : FontWeight.normal,
+                  color: isCurrentPhrase ? Colors.green : Colors.black,
+                ),
               ),
             ),
-            subtitle: Text(transcript.speakers
-                .firstWhere((s) => s.phrases.contains(phrase))
-                .name),
+            subtitle: Center(
+              child: Text(transcript.speakers
+                  .firstWhere((s) => s.phrases.contains(phrase))
+                  .name),
+            ),
           );
         },
       ),
